@@ -19,7 +19,6 @@ namespace _5.gyakorlat_b1c08i
         List<decimal> Nyereségek = new List<decimal>();
 
 
-
         public Form1()
         {
             InitializeComponent();
