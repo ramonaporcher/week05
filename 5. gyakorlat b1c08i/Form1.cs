@@ -16,7 +16,9 @@ namespace _5.gyakorlat_b1c08i
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
-        
+        List<decimal> Nyereségek = new List<decimal>();
+
+
 
         public Form1()
         {
@@ -38,22 +40,11 @@ namespace _5.gyakorlat_b1c08i
         private decimal GetPortfolioValue(DateTime date)
         {
             decimal value = 0;
-            foreach (var item in Portfolio)
-            {
-                var last = (from x in Ticks
-                            where item.Index == x.Index.Trim()
-                               && date <= x.TradingDay
-                            select x)
-                            .First();
-                value += (decimal)last.Price * item.Volume;
-            }
-            return value;
-
-            List<decimal> Nyereségek = new List<decimal>();
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
             TimeSpan z = záróDátum - kezdőDátum;
+
             for (int i = 0; i < z.Days - intervalum; i++)
             {
                 decimal ny = GetPortfolioValue(kezdőDátum.AddDays(i + intervalum))
@@ -67,6 +58,19 @@ namespace _5.gyakorlat_b1c08i
                                       select x)
                                         .ToList();
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
+
+            foreach (var item in Portfolio)
+            {
+                var last = (from x in Ticks
+                            where item.Index == x.Index.Trim()
+                               && date <= x.TradingDay
+                            select x)
+                            .First();
+                value += (decimal)last.Price * item.Volume;
+            }
+            return value;
+                    
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -82,7 +86,7 @@ namespace _5.gyakorlat_b1c08i
                 "Nyereség",
             };
             
-            }
+            
         }
     }
 }
