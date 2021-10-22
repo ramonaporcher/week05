@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace _5.gyakorlat_b1c08i
 {
@@ -68,7 +69,20 @@ namespace _5.gyakorlat_b1c08i
             MessageBox.Show(nyereségekRendezve[nyereségekRendezve.Count() / 5].ToString());
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Export();
+        }
 
-
+        private void Export()
+        {
+            var headers = new string[]
+            {
+                "Időszak",
+                "Nyereség",
+            };
+            
+            }
+        }
     }
 }
